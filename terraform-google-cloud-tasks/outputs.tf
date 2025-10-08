@@ -14,7 +14,13 @@
  * limitations under the License.
  */
 
-output "bucket_name" {
-  description = "Name of the bucket"
-  value       = google_storage_bucket.main.name
+output "id" {
+  description = "An identifier for the resource with format projects/{{project}}/locations/{{location}}/queues/{{name}}"
+  value       = google_cloud_tasks_queue.queue.id
+}
+
+# Only when iam_policy resource is passed by the user
+output "etag" {
+  description = "The etag of the IAM policy"
+  value       = length(google_cloud_tasks_queue_iam_policy.iam_policy) > 0 ? google_cloud_tasks_queue_iam_policy.iam_policy[*].etag : null
 }

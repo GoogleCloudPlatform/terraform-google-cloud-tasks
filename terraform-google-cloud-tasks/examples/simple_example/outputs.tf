@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-output "bucket_name" {
-  description = "The name of the bucket."
-  value       = module.cloud_tasks.bucket_name
+output "id" {
+  description = "An identifier for the resource with format projects/{{project}}/locations/{{location}}/queues/{{name}}"
+  value       = module.cloud_tasks.id
 }

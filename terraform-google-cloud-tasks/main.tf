@@ -14,8 +14,116 @@
  * limitations under the License.
  */
 
-resource "google_storage_bucket" "main" {
-  project  = var.project_id
-  name     = var.bucket_name
-  location = "US"
+data "google_iam_policy" "admin" {
+  binding {
+    role = var.role
+    members = var.members
+  }
 }
+
+resource "google_cloud_tasks_queue" "queue" {
+  name = var.queue_name
+  location = var.location
+  project = var.project_id
+
+  dynamic "app_engine_routing_override" {
+    for_each = var.app_engine_routing_override[*]
+    content {
+      service  = app_engine_routing_override.value["service"]
+      version  = app_engine_routing_override.value["version"]
+      instance = app_engine_routing_override.value["instance"]
+      host     = app_engine_routing_override.value["host"]
+    }
+  }
+
+  dynamic "rate_limits" {
+    for_each = var.rate_limits[*]
+    content {
+      max_dispatches_per_second = rate_limits.value["max_dispatches_per_second"]
+      max_concurrent_dispatches = rate_limits.value["max_concurrent_dispatches"]
+      max_burst_size            = rate_limits.value["max_burst_size"]
+    }
+  }
+
+  dynamic "retry_config" {
+    for_each = var.retry_config[*]
+    content {
+      max_attempts         = retry_config.value["max_attempts"]
+      max_retry_duration   = retry_config.value["max_retry_duration"]
+      min_backoff          = retry_config.value["min_backoff"]
+      max_backoff          = retry_config.value["max_backoff"]
+      max_doublings        = retry_config.value["max_doublings"]
+    }
+  }
+
+  dynamic "stackdriver_logging_config" {
+    for_each = var.stackdriver_logging_config[*]
+    content {
+      sampling_ratio = stackdriver_logging_config.value["sampling_ratio"]
+    }
+  }
+
+  dynamic "http_target" {
+    for_each = var.http_target[*]
+    content {
+      http_method  = http_target.value["http_method"]
+
+      dynamic "uri_override" {
+        for_each = http_target.value["uri_override"]
+        content {
+          scheme                    = uri_override.value["scheme"]
+          host                      = uri_override.value["host"]
+          port                      = uri_override.value["port"]
+          dynamic "path_override" {
+            for_each = uri_override.value["path_override"]
+            content {
+              path = path_override.value["path"]
+            }
+          }
+          dynamic "query_override" {
+            for_each = uri_override.value["query_override"]
+            content {
+              query_params = query_override.value["query_override"]
+            }
+          }
+          uri_override_enforce_mode = uri_override.value["uri_override_enforce_mode"]
+        }
+      }
+
+      dynamic "oidc_token" {
+        for_each = http_target.value["oidc_token"]
+        content {
+          service_account_email = oidc_token.value["service_account_email"]
+          audience = oidc_token.value["audience"]
+        }
+    }
+    }
+  }
+}
+
+resource "google_cloud_tasks_queue_iam_member" "iam_member" {
+  count       = var.queue_iam_choice == "iam_member" ||  var.queue_iam_choice == "iam_member_binding" ? 1 : 0
+  name        = var.iam_name
+  location    = var.location
+  project     = var.project_id
+  member      = var.member
+  role        = var.role
+}
+
+resource "google_cloud_tasks_queue_iam_binding" "iam_binding" {
+  count       = var.queue_iam_choice == "iam_binding" ||  var.queue_iam_choice == "iam_member_binding" ? 1 : 0
+  name        = var.iam_name
+  location    = var.location
+  project     = var.project_id
+  members     = var.members
+  role        = var.role
+}
+
+resource "google_cloud_tasks_queue_iam_policy" "iam_policy" {
+  count       = var.queue_iam_choice == "iam_policy" ? 1 : 0
+  name        = var.iam_name
+  location    = var.location
+  project     = var.project_id
+  policy_data = data.google_iam_policy.admin.policy_data
+}
+

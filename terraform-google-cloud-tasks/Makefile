@@ -35,6 +35,8 @@ docker_run:
 .PHONY: docker_test_prepare
 docker_test_prepare:
 	docker run --rm -it \
+		-e GOOGLE_APPLICATION_CREDENTIALS=/app/terraform-key.json \
+	    -v ~/terraform-key.json:/app/terraform-key.json \
 		-e SERVICE_ACCOUNT_JSON \
 		-e TF_VAR_org_id \
 		-e TF_VAR_folder_id \

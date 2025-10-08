@@ -52,14 +52,27 @@ Functional examples are included in the
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| bucket\_name | The name of the bucket to create | `string` | n/a | yes |
-| project\_id | The project ID to deploy to | `string` | n/a | yes |
+| project\_id | The ID of the project in which the resource belongs to | `string` | n/a | yes |
+| queue\_name | The queue name | `string` | n/a | yes |
+| iam\_name | Used to find the parent resource to bind the IAM policy to | `string` | n/a | yes |
+| location  | The location of the queue | `string` | n/a | yes |
+| queue_iam_choice  | Opt the cloud_tasks_queue_iam: 1. iam_binding, 2. iam_member, 3. iam_policy | `number` | n/a | yes |
+| role | The role that should be applied | `string` | n/a | yes |
+| member | Identities that will be granted the privilege in role | `string` | n/a | yes |
+| app_engine_routing_override  | Overrides for task-level appEngineRouting and these settings apply only to App Engine tasks in the queue structure | `object` | n/a | yes |
+| rate_limits  | Rate limits for task dispatches | `object` | n/a | yes |
+| retry_config  | Settings that determine the retry behavior | `object` | null | no |
+| stackdriver_logging_config  | Configuration options for writing logs to Stackdriver Logging | `object` | null | no |
+| http_target | Modifies HTTP target for HTTP task| `object` | null | no |
+| desired_state | The desired state of the queue is used to pause and resume the queu | `string` | PAUSED | no |
+| members | Identities that will be granted the privilege in role | `list(string)` | null | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| bucket\_name | Name of the bucket |
+| id | An identifier for the resource with format projects/{{project}}/locations/{{location}}/queues/{{name}} |
+| etag | The etag of the IAM policy when it is passed as an input |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 

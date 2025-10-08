@@ -15,11 +15,16 @@
  */
 
 variable "project_id" {
-  description = "The ID of the project in which to provision resources."
+  description = "The ID of the project in which the resource belongs"
   type        = string
 }
 
-variable "bucket_name" {
-  description = "The name of the bucket to create."
+variable "queue_name" {
+  description = "The queue name"
+  type        = string
+}
+
+variable "iam_name" {
+  description = "Used to find the parent resource to bind the IAM policy to"
   type        = string
 }

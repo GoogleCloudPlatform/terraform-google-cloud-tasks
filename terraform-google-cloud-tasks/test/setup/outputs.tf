@@ -22,3 +22,8 @@ output "sa_key" {
   value     = google_service_account_key.int_test.private_key
   sensitive = true
 }
+
+output "id" {
+  value = "projects/pid/locations/us-central1/queues/que1"
+  description = "An identifier for the resource with format projects/{{project}}/locations/{{location}}/queues/{{name}}"
+}
