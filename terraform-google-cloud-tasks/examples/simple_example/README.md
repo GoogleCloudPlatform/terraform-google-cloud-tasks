@@ -7,15 +7,15 @@ This example illustrates how to use the `cloud-tasks` module.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| project\_id | The ID of the project in which the resource belongs. | `string` | n/a | yes |
-| queue\_name | The queue name. | `string` | n/a | yes |
-| iam\_name   | Used to find the parent resource to bind the IAM policy to. | `string` | n/a | yes |
+| iam\_name | Used to find the parent resource to bind the IAM policy to | `string` | n/a | yes |
+| project\_id | The ID of the project in which the resource belongs | `string` | n/a | yes |
+| queue\_name | The queue name | `string` | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| id | An identifier for the resource with format projects/{{project}}/locations/{{location}}/queues/{{name}}. |
+| id | An identifier for the resource with format projects/{{project}}/locations/{{location}}/queues/{{name}} |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 

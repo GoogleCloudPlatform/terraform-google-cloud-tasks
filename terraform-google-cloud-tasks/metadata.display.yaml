@@ -1,0 +1,70 @@
+# Copyright 2025 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+apiVersion: blueprints.cloud.google.com/v1alpha1
+kind: BlueprintMetadata
+metadata:
+  name: terraform-google-cloud-tasks-display
+  annotations:
+    config.kubernetes.io/local-config: "true"
+spec:
+  info:
+    title: terraform-google-cloud-tasks
+    source:
+      repo: terraform-google-cloud-tasks
+  ui:
+    input:
+      variables:
+        app_engine_routing_override:
+          name: app_engine_routing_override
+          title: App Engine Routing Override
+        desired_state:
+          name: desired_state
+          title: Desired State
+        http_target:
+          name: http_target
+          title: Http Target
+        iam_name:
+          name: iam_name
+          title: Iam Name
+        location:
+          name: location
+          title: Location
+        member:
+          name: member
+          title: Member
+        members:
+          name: members
+          title: Members
+        project_id:
+          name: project_id
+          title: Project Id
+        queue_iam_choice:
+          name: queue_iam_choice
+          title: Queue Iam Choice
+        queue_name:
+          name: queue_name
+          title: Queue Name
+        rate_limits:
+          name: rate_limits
+          title: Rate Limits
+        retry_config:
+          name: retry_config
+          title: Retry Config
+        role:
+          name: role
+          title: Role
+        stackdriver_logging_config:
+          name: stackdriver_logging_config
+          title: Stackdriver Logging Config

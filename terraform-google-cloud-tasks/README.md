@@ -52,27 +52,27 @@ Functional examples are included in the
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| project\_id | The ID of the project in which the resource belongs to | `string` | n/a | yes |
-| queue\_name | The queue name | `string` | n/a | yes |
+| app\_engine\_routing\_override | Overrides for task-level appEngineRouting and these settings apply only to App Engine tasks in the queue structure | <pre>object({<br>    service  = optional(string)<br>    version  = optional(string)<br>    instance = optional(string)<br>    host     = optional(string)<br>  })</pre> | `null` | no |
+| desired\_state | The desired state of the queue is used to pause and resume the queue | `string` | `"PAUSED"` | no |
+| http\_target | Modifies HTTP target for HTTP tasks | <pre>object({<br>    uri_override = object({<br>      scheme                    = optional(string)<br>      host                      = optional(string)<br>      port                      = optional(string)<br>      path_override             = object ({<br>        path                    = optional(string)<br>  })<br>      query_override            = object({<br>        query_params            = optional(string)<br>      })<br>      uri_override_enforce_mode = optional(string)<br>    })<br>    http_method  = optional(string)<br>    oath_token   = optional(object({<br>      service_account_email = string<br>  scope                 = optional(string)<br>    }))<br>    oidc_token = optional(object({<br>      service_account_email = string<br>      audience              = optional(string)<br>    }))<br>  })</pre> | `null` | no |
 | iam\_name | Used to find the parent resource to bind the IAM policy to | `string` | n/a | yes |
-| location  | The location of the queue | `string` | n/a | yes |
-| queue_iam_choice  | Opt the cloud_tasks_queue_iam: 1. iam_binding, 2. iam_member, 3. iam_policy | `number` | n/a | yes |
-| role | The role that should be applied | `string` | n/a | yes |
+| location | The location of the queue | `string` | n/a | yes |
 | member | Identities that will be granted the privilege in role | `string` | n/a | yes |
-| app_engine_routing_override  | Overrides for task-level appEngineRouting and these settings apply only to App Engine tasks in the queue structure | `object` | n/a | yes |
-| rate_limits  | Rate limits for task dispatches | `object` | n/a | yes |
-| retry_config  | Settings that determine the retry behavior | `object` | null | no |
-| stackdriver_logging_config  | Configuration options for writing logs to Stackdriver Logging | `object` | null | no |
-| http_target | Modifies HTTP target for HTTP task| `object` | null | no |
-| desired_state | The desired state of the queue is used to pause and resume the queu | `string` | PAUSED | no |
-| members | Identities that will be granted the privilege in role | `list(string)` | null | no |
+| members | Identities that will be granted the privilege in role | `list(string)` | `[]` | no |
+| project\_id | The ID of the project in which the resource belongs | `string` | n/a | yes |
+| queue\_iam\_choice | Opt 1. iam\_binding, 2. iam\_member, 3. iam\_policy, 4. iam\_member\_binding (for both iam\_member and iam\_binding) | `string` | n/a | yes |
+| queue\_name | The queue name | `string` | n/a | yes |
+| rate\_limits | Rate limits for task dispatches | <pre>object({<br>    max_dispatches_per_second = optional(number)<br>    max_concurrent_dispatches = optional(number)<br>    max_burst_size            = optional(number)<br>  })</pre> | `null` | no |
+| retry\_config | Settings that determine the retry behavior | <pre>object({<br>    max_attempts         = optional(number)<br>    max_retry_duration   = optional(string)<br>    min_backoff          = optional(string)<br>    max_backoff          = optional(string)<br>    max_doublings        = optional(number)<br>  })</pre> | `null` | no |
+| role | The role that should be applied | `string` | n/a | yes |
+| stackdriver\_logging\_config | Configuration options for writing logs to Stackdriver Logging | <pre>object({<br>    sampling_ratio = optional(number)<br>  })</pre> | `null` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
+| etag | The etag of the IAM policy |
 | id | An identifier for the resource with format projects/{{project}}/locations/{{location}}/queues/{{name}} |
-| etag | The etag of the IAM policy when it is passed as an input |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
