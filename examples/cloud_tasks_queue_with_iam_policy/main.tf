@@ -1,5 +1,5 @@
 /**
- * Copyright 2019 Google LLC
+ * Copyright 2021 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,19 +14,16 @@
  * limitations under the License.
  */
 
-module "project" {
-  source  = "terraform-google-modules/project-factory/google"
-  version = "~> 17.0"
+module "cloud_tasks" {
+  source = "../.."
 
-  name              = "ci-cloud-tasks"
-  random_project_id = "true"
-  org_id            = var.org_id
-  folder_id         = var.folder_id
-  billing_account   = var.billing_account
+  project_id = var.project_id
+  queue_name = "test-queue1"
+  iam_name   = "test-que-iam"
 
-  activate_apis = [
-    "cloudresourcemanager.googleapis.com",
-    "serviceusage.googleapis.com",
-    "cloudtasks.googleapis.com"
-  ]
+  queue_iam_choice = "iam_policy"
+  location         = "us-central1"
+  member           = "user:jane@example.com"
+  rate_limits      = { max_concurrent_dispatches = 3, max_dispatches_per_second = 2 }
+  role             = "roles/viewer"
 }

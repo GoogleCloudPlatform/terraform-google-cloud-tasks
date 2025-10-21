@@ -1,4 +1,4 @@
-# Simple Example
+# Cloud Tasks with IAM Memeber Example
 
 This example illustrates how to use the `cloud-tasks` module.
 
@@ -7,9 +7,7 @@ This example illustrates how to use the `cloud-tasks` module.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| iam\_name | Used to find the parent resource to bind the IAM policy to | `string` | n/a | yes |
 | project\_id | The ID of the project in which the resource belongs | `string` | n/a | yes |
-| queue\_name | The queue name | `string` | n/a | yes |
 
 ## Outputs
 

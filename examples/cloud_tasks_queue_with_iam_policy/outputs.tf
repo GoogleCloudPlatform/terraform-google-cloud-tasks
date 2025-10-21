@@ -14,17 +14,12 @@
  * limitations under the License.
  */
 
-variable "project_id" {
-  description = "The ID of the project in which the resource belongs"
-  type        = string
+output "id" {
+  description = "An identifier for the resource with format projects/{{project}}/locations/{{location}}/queues/{{name}}"
+  value       = module.cloud_tasks.id
 }
 
-variable "queue_name" {
-  description = "The queue name"
-  type        = string
-}
-
-variable "iam_name" {
-  description = "Used to find the parent resource to bind the IAM policy to"
-  type        = string
+output "etag" {
+  description = "The etag of the IAM policy"
+  value       = module.cloud_tasks.etag
 }
