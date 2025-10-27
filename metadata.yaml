@@ -22,7 +22,8 @@ spec:
   info:
     title: terraform-google-cloud-tasks
     source:
-      repo: terraform-google-cloud-tasks
+      repo: sso://ospo-internal/releasing/terraform-google-cloud-tasks/terraform-google-cloud-tasks
+      sourceType: git
     version: 0.0.1
     actuationTool:
       flavor: Terraform
@@ -31,9 +32,14 @@ spec:
       tagline: This is an auto-generated module.
       detailed: "This module was generated from "
       preDeploy: To deploy this blueprint you must have an active billing account and billing permissions.
+  content:
     examples:
-      - name: simple_example
-        location: examples/simple_example
+      - name: cloud_tasks_queue_with_iam_member
+        location: examples/cloud_tasks_queue_with_iam_member
+      - name: cloud_tasks_queue_with_iam_policy
+        location: examples/cloud_tasks_queue_with_iam_policy
+      - name: cloud_tasks_queue_with_stackdriver_logging
+        location: examples/cloud_tasks_queue_with_stackdriver_logging
   interfaces:
     variables:
       - name: queue_name
@@ -134,10 +140,8 @@ spec:
     outputs:
       - name: etag
         description: The etag of the IAM policy
-        varType: string
       - name: id
         description: An identifier for the resource with format projects/{{project}}/locations/{{location}}/queues/{{name}}
-        varType: string
   requirements:
     roles:
       - level: Project
@@ -149,7 +153,6 @@ spec:
           - roles/cloudtasks.admin
     services:
       - cloudresourcemanager.googleapis.com
-      - storage-api.googleapis.com
       - serviceusage.googleapis.com
       - cloudtasks.googleapis.com
     providerVersions:
