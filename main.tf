@@ -16,15 +16,15 @@
 
 data "google_iam_policy" "admin" {
   binding {
-    role = var.role
+    role    = var.role
     members = var.members
   }
 }
 
 resource "google_cloud_tasks_queue" "queue" {
-  name = var.queue_name
+  name     = var.queue_name
   location = var.location
-  project = var.project_id
+  project  = var.project_id
 
   dynamic "app_engine_routing_override" {
     for_each = var.app_engine_routing_override[*]
@@ -48,11 +48,11 @@ resource "google_cloud_tasks_queue" "queue" {
   dynamic "retry_config" {
     for_each = var.retry_config[*]
     content {
-      max_attempts         = retry_config.value["max_attempts"]
-      max_retry_duration   = retry_config.value["max_retry_duration"]
-      min_backoff          = retry_config.value["min_backoff"]
-      max_backoff          = retry_config.value["max_backoff"]
-      max_doublings        = retry_config.value["max_doublings"]
+      max_attempts       = retry_config.value["max_attempts"]
+      max_retry_duration = retry_config.value["max_retry_duration"]
+      min_backoff        = retry_config.value["min_backoff"]
+      max_backoff        = retry_config.value["max_backoff"]
+      max_doublings      = retry_config.value["max_doublings"]
     }
   }
 
@@ -66,14 +66,14 @@ resource "google_cloud_tasks_queue" "queue" {
   dynamic "http_target" {
     for_each = var.http_target[*]
     content {
-      http_method  = http_target.value["http_method"]
+      http_method = http_target.value["http_method"]
 
       dynamic "uri_override" {
         for_each = http_target.value["uri_override"]
         content {
-          scheme                    = uri_override.value["scheme"]
-          host                      = uri_override.value["host"]
-          port                      = uri_override.value["port"]
+          scheme = uri_override.value["scheme"]
+          host   = uri_override.value["host"]
+          port   = uri_override.value["port"]
           dynamic "path_override" {
             for_each = uri_override.value["path_override"]
             content {
@@ -94,29 +94,29 @@ resource "google_cloud_tasks_queue" "queue" {
         for_each = http_target.value["oidc_token"]
         content {
           service_account_email = oidc_token.value["service_account_email"]
-          audience = oidc_token.value["audience"]
+          audience              = oidc_token.value["audience"]
         }
-    }
+      }
     }
   }
 }
 
 resource "google_cloud_tasks_queue_iam_member" "iam_member" {
-  count       = var.queue_iam_choice == "iam_member" ||  var.queue_iam_choice == "iam_member_binding" ? 1 : 0
-  name        = var.iam_name
-  location    = var.location
-  project     = var.project_id
-  member      = var.member
-  role        = var.role
+  count    = var.queue_iam_choice == "iam_member" || var.queue_iam_choice == "iam_member_binding" ? 1 : 0
+  name     = var.iam_name
+  location = var.location
+  project  = var.project_id
+  member   = var.member
+  role     = var.role
 }
 
 resource "google_cloud_tasks_queue_iam_binding" "iam_binding" {
-  count       = var.queue_iam_choice == "iam_binding" ||  var.queue_iam_choice == "iam_member_binding" ? 1 : 0
-  name        = var.iam_name
-  location    = var.location
-  project     = var.project_id
-  members     = var.members
-  role        = var.role
+  count    = var.queue_iam_choice == "iam_binding" || var.queue_iam_choice == "iam_member_binding" ? 1 : 0
+  name     = var.iam_name
+  location = var.location
+  project  = var.project_id
+  members  = var.members
+  role     = var.role
 }
 
 resource "google_cloud_tasks_queue_iam_policy" "iam_policy" {
@@ -126,4 +126,3 @@ resource "google_cloud_tasks_queue_iam_policy" "iam_policy" {
   project     = var.project_id
   policy_data = data.google_iam_policy.admin.policy_data
 }
-

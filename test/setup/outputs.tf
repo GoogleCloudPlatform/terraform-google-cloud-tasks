@@ -24,6 +24,6 @@ output "sa_key" {
 }
 
 output "id" {
-  value = "projects/pid/locations/us-central1/queues/que1"
+  value       = "projects/pid/locations/us-central1/queues/que1"
   description = "An identifier for the resource with format projects/{{project}}/locations/{{location}}/queues/{{name}}"
 }

@@ -91,11 +91,11 @@ spec:
         description: Settings that determine the retry behavior
         varType: |-
           object({
-              max_attempts         = optional(number)
-              max_retry_duration   = optional(string)
-              min_backoff          = optional(string)
-              max_backoff          = optional(string)
-              max_doublings        = optional(number)
+              max_attempts       = optional(number)
+              max_retry_duration = optional(string)
+              min_backoff        = optional(string)
+              max_backoff        = optional(string)
+              max_doublings      = optional(number)
             })
       - name: stackdriver_logging_config
         description: Configuration options for writing logs to Stackdriver Logging
@@ -108,31 +108,27 @@ spec:
         varType: |-
           object({
               uri_override = object({
-                scheme                    = optional(string)
-                host                      = optional(string)
-                port                      = optional(string)
-                path_override             = object ({
-                  path                    = optional(string)
-            })
-                query_override            = object({
-                  query_params            = optional(string)
+                scheme = optional(string)
+                host   = optional(string)
+                port   = optional(string)
+                path_override = object({
+                  path = optional(string)
+                })
+                query_override = object({
+                  query_params = optional(string)
                 })
                 uri_override_enforce_mode = optional(string)
               })
-              http_method  = optional(string)
-              oath_token   = optional(object({
+              http_method = optional(string)
+              oath_token = optional(object({
                 service_account_email = string
-            scope                 = optional(string)
+                scope                 = optional(string)
               }))
               oidc_token = optional(object({
                 service_account_email = string
                 audience              = optional(string)
               }))
             })
-      - name: desired_state
-        description: The desired state of the queue is used to pause and resume the queue
-        varType: string
-        defaultValue: PAUSED
       - name: members
         description: Identities that will be granted the privilege in role
         varType: list(string)
@@ -140,8 +136,12 @@ spec:
     outputs:
       - name: etag
         description: The etag of the IAM policy
+        type:
+          - list
+          - - string
       - name: id
         description: An identifier for the resource with format projects/{{project}}/locations/{{location}}/queues/{{name}}
+        type: string
   requirements:
     roles:
       - level: Project

@@ -37,7 +37,7 @@ variable "queue_iam_choice" {
   description = "Opt 1. iam_binding, 2. iam_member, 3. iam_policy, 4. iam_member_binding (for both iam_member and iam_binding)"
   type        = string
   validation {
-    condition = contains(["iam_binding", "iam_member", "iam_policy", "iam_member_binding"], var.queue_iam_choice)
+    condition     = contains(["iam_binding", "iam_member", "iam_policy", "iam_member_binding"], var.queue_iam_choice)
     error_message = "Valid values for 'queue_iam_choice' are: 'iam_binding', 'iam_member', 'iam_policy', or 'iam_member_binding'."
   }
 }
@@ -51,19 +51,19 @@ variable "iam_name" {
 #Required variable
 variable "role" {
   description = "The role that should be applied"
-  type = string
+  type        = string
 }
 
 #Required variable
 variable "member" {
   description = "Identities that will be granted the privilege in role"
-  type = string
+  type        = string
 }
 
 #Optional variable
 variable "app_engine_routing_override" {
   description = "Overrides for task-level appEngineRouting and these settings apply only to App Engine tasks in the queue structure"
-  type        = object({
+  type = object({
     service  = optional(string)
     version  = optional(string)
     instance = optional(string)
@@ -75,7 +75,7 @@ variable "app_engine_routing_override" {
 #Optional variable
 variable "rate_limits" {
   description = "Rate limits for task dispatches"
-  type        = object({
+  type = object({
     max_dispatches_per_second = optional(number)
     max_concurrent_dispatches = optional(number)
     max_burst_size            = optional(number)
@@ -86,12 +86,12 @@ variable "rate_limits" {
 #Optional variable
 variable "retry_config" {
   description = "Settings that determine the retry behavior"
-  type        =  object({
-    max_attempts         = optional(number)
-    max_retry_duration   = optional(string)
-    min_backoff          = optional(string)
-    max_backoff          = optional(string)
-    max_doublings        = optional(number)
+  type = object({
+    max_attempts       = optional(number)
+    max_retry_duration = optional(string)
+    min_backoff        = optional(string)
+    max_backoff        = optional(string)
+    max_doublings      = optional(number)
   })
   default = null
 }
@@ -99,7 +99,7 @@ variable "retry_config" {
 #Optional variable
 variable "stackdriver_logging_config" {
   description = "Configuration options for writing logs to Stackdriver Logging"
-  type        = object({
+  type = object({
     sampling_ratio = optional(number)
   })
   default = null
@@ -108,23 +108,23 @@ variable "stackdriver_logging_config" {
 #Optional variable
 variable "http_target" {
   description = "Modifies HTTP target for HTTP tasks"
-  type        = object({
+  type = object({
     uri_override = object({
-      scheme                    = optional(string)
-      host                      = optional(string)
-      port                      = optional(string)
-      path_override             = object ({
-        path                    = optional(string)
-  })
-      query_override            = object({
-        query_params            = optional(string)
+      scheme = optional(string)
+      host   = optional(string)
+      port   = optional(string)
+      path_override = object({
+        path = optional(string)
+      })
+      query_override = object({
+        query_params = optional(string)
       })
       uri_override_enforce_mode = optional(string)
     })
-    http_method  = optional(string)
-    oath_token   = optional(object({
+    http_method = optional(string)
+    oath_token = optional(object({
       service_account_email = string
-  scope                 = optional(string)
+      scope                 = optional(string)
     }))
     oidc_token = optional(object({
       service_account_email = string
@@ -135,16 +135,8 @@ variable "http_target" {
 }
 
 #Optional variable
-variable "desired_state" {
-  description = "The desired state of the queue is used to pause and resume the queue"
-  type        = string
-  default     = "PAUSED"
-}
-
-#Optional variable
 variable "members" {
   description = "Identities that will be granted the privilege in role"
-  type = list(string)
-  default = []
+  type        = list(string)
+  default     = []
 }
-
