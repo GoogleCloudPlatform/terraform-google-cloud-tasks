@@ -74,3 +74,7 @@ spec:
           name: stackdriver_logging_config
           title: Stackdriver Logging Config
           level: 1
+    runtime:
+      outputs:
+        id:
+          visibility: VISIBILITY_ROOT
