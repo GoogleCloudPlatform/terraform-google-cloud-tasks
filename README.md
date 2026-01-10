@@ -54,16 +54,15 @@ Functional examples are included in the
 |------|-------------|------|---------|:--------:|
 | app\_engine\_routing\_override | Overrides for task-level appEngineRouting and these settings apply only to App Engine tasks in the queue structure | <pre>object({<br>    service  = optional(string)<br>    version  = optional(string)<br>    instance = optional(string)<br>    host     = optional(string)<br>  })</pre> | `null` | no |
 | http\_target | Modifies HTTP target for HTTP tasks | <pre>object({<br>    uri_override = object({<br>      scheme = optional(string)<br>      host   = optional(string)<br>      port   = optional(string)<br>      path_override = object({<br>        path = optional(string)<br>      })<br>      query_override = object({<br>        query_params = optional(string)<br>      })<br>      uri_override_enforce_mode = optional(string)<br>    })<br>    http_method = optional(string)<br>    oath_token = optional(object({<br>      service_account_email = string<br>      scope                 = optional(string)<br>    }))<br>    oidc_token = optional(object({<br>      service_account_email = string<br>      audience              = optional(string)<br>    }))<br>  })</pre> | `null` | no |
-| iam\_name | Used to find the parent resource to bind the IAM policy to | `string` | n/a | yes |
 | location | The location of the queue | `string` | n/a | yes |
-| member | Identities that will be granted the privilege in role | `string` | n/a | yes |
-| members | Identities that will be granted the privilege in role | `list(string)` | `[]` | no |
+| member | Identities that will be granted the privilege in role, must be passed when iam\_choice is iam\_member | `string` | `null` | no |
+| members | Identities that will be granted the privilege in role, must be passed when iam\_choice is iam\_binding or iam\_policy | `list(string)` | `[]` | no |
 | project\_id | The ID of the project in which the resource belongs | `string` | n/a | yes |
-| queue\_iam\_choice | Opt 1. iam\_binding, 2. iam\_member, 3. iam\_policy, 4. iam\_member\_binding (for both iam\_member and iam\_binding) | `string` | n/a | yes |
+| queue\_iam\_choice | Opt 1. iam\_binding, 2. iam\_member, 3. iam\_policy, 4. iam\_member\_binding (for both iam\_member and iam\_binding) | `string` | `null` | no |
 | queue\_name | The queue name | `string` | n/a | yes |
 | rate\_limits | Rate limits for task dispatches | <pre>object({<br>    max_dispatches_per_second = optional(number)<br>    max_concurrent_dispatches = optional(number)<br>    max_burst_size            = optional(number)<br>  })</pre> | `null` | no |
 | retry\_config | Settings that determine the retry behavior | <pre>object({<br>    max_attempts       = optional(number)<br>    max_retry_duration = optional(string)<br>    min_backoff        = optional(string)<br>    max_backoff        = optional(string)<br>    max_doublings      = optional(number)<br>  })</pre> | `null` | no |
-| role | The role that should be applied | `string` | n/a | yes |
+| role | The role that should be applied, must be passed when a iam\_choice is not null | `string` | `null` | no |
 | stackdriver\_logging\_config | Configuration options for writing logs to Stackdriver Logging | <pre>object({<br>    sampling_ratio = optional(number)<br>  })</pre> | `null` | no |
 
 ## Outputs

@@ -1,4 +1,4 @@
-# Copyright 2025 Google LLC
+# Copyright 2026 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -28,10 +28,8 @@ spec:
     actuationTool:
       flavor: Terraform
       version: ">= 1.3"
-    description:
-      tagline: This is an auto-generated module.
-      detailed: "This module was generated from "
-      preDeploy: To deploy this blueprint you must have an active billing account and billing permissions.
+    description: {}
+    icon: assets/icon.png
   content:
     examples:
       - name: cloud_tasks_queue_with_iam_member
@@ -57,19 +55,12 @@ spec:
       - name: queue_iam_choice
         description: Opt 1. iam_binding, 2. iam_member, 3. iam_policy, 4. iam_member_binding (for both iam_member and iam_binding)
         varType: string
-        required: true
-      - name: iam_name
-        description: Used to find the parent resource to bind the IAM policy to
-        varType: string
-        required: true
       - name: role
-        description: The role that should be applied
+        description: The role that should be applied, must be passed when a iam_choice is not null
         varType: string
-        required: true
       - name: member
-        description: Identities that will be granted the privilege in role
+        description: Identities that will be granted the privilege in role, must be passed when iam_choice is iam_member
         varType: string
-        required: true
       - name: app_engine_routing_override
         description: Overrides for task-level appEngineRouting and these settings apply only to App Engine tasks in the queue structure
         varType: |-
@@ -130,7 +121,7 @@ spec:
               }))
             })
       - name: members
-        description: Identities that will be granted the privilege in role
+        description: Identities that will be granted the privilege in role, must be passed when iam_choice is iam_binding or iam_policy
         varType: list(string)
         defaultValue: []
     outputs:
@@ -138,7 +129,7 @@ spec:
         description: The etag of the IAM policy
         type:
           - list
-          - - string
+          - string
       - name: id
         description: An identifier for the resource with format projects/{{project}}/locations/{{location}}/queues/{{name}}
         type: string

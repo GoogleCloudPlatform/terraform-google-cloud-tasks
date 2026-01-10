@@ -19,7 +19,6 @@ module "cloud_tasks" {
 
   project_id = var.project_id
   queue_name = "test-queue-member"
-  iam_name   = "test-que-iam"
 
   queue_iam_choice            = "iam_member"
   location                    = "us-central1"

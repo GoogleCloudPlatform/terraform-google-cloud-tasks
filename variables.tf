@@ -32,32 +32,24 @@ variable "project_id" {
   type        = string
 }
 
-#Required variable
 variable "queue_iam_choice" {
   description = "Opt 1. iam_binding, 2. iam_member, 3. iam_policy, 4. iam_member_binding (for both iam_member and iam_binding)"
   type        = string
-  validation {
-    condition     = contains(["iam_binding", "iam_member", "iam_policy", "iam_member_binding"], var.queue_iam_choice)
-    error_message = "Valid values for 'queue_iam_choice' are: 'iam_binding', 'iam_member', 'iam_policy', or 'iam_member_binding'."
-  }
-}
-
-#Required variable
-variable "iam_name" {
-  description = "Used to find the parent resource to bind the IAM policy to"
-  type        = string
+  default     = null
 }
 
 #Required variable
 variable "role" {
-  description = "The role that should be applied"
+  description = "The role that should be applied, must be passed when a iam_choice is not null"
   type        = string
+  default     = null
 }
 
 #Required variable
 variable "member" {
-  description = "Identities that will be granted the privilege in role"
+  description = "Identities that will be granted the privilege in role, must be passed when iam_choice is iam_member"
   type        = string
+  default     = null
 }
 
 #Optional variable
@@ -136,7 +128,7 @@ variable "http_target" {
 
 #Optional variable
 variable "members" {
-  description = "Identities that will be granted the privilege in role"
+  description = "Identities that will be granted the privilege in role, must be passed when iam_choice is iam_binding or iam_policy"
   type        = list(string)
   default     = []
 }

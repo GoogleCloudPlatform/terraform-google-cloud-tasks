@@ -19,11 +19,10 @@ module "cloud_tasks" {
 
   project_id = var.project_id
   queue_name = "test-queue1"
-  iam_name   = "test-que-iam"
 
   queue_iam_choice = "iam_policy"
   location         = "us-central1"
-  member           = "user:jane@example.com"
+  member           = "serviceAccount:ci-account@${var.project_id}.iam.gserviceaccount.com"
   rate_limits      = { max_concurrent_dispatches = 3, max_dispatches_per_second = 2 }
   role             = "roles/viewer"
 }

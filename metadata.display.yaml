@@ -1,4 +1,4 @@
-# Copyright 2025 Google LLC
+# Copyright 2026 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -39,15 +39,13 @@ spec:
           name: http_target
           title: Http Target
           level: 1
-        iam_name:
-          name: iam_name
-          title: Iam Name
         location:
           name: location
           title: Location
         member:
           name: member
           title: Member
+          level: 1
         members:
           name: members
           title: Members
@@ -58,6 +56,7 @@ spec:
         queue_iam_choice:
           name: queue_iam_choice
           title: Queue Iam Choice
+          level: 1
         queue_name:
           name: queue_name
           title: Queue Name
@@ -70,6 +69,7 @@ spec:
         role:
           name: role
           title: Role
+          level: 1
         stackdriver_logging_config:
           name: stackdriver_logging_config
           title: Stackdriver Logging Config

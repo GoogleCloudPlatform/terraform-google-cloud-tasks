@@ -19,13 +19,12 @@ module "cloud_tasks" {
 
   project_id = var.project_id
   queue_name = "test-queue-sl1"
-  iam_name   = "test-que-iam"
 
   queue_iam_choice            = "iam_binding"
   stackdriver_logging_config  = { sampling_ratio = 0.9 }
   app_engine_routing_override = { service = "worker", version = "1.0", instance = "test" }
   location                    = "us-central1"
-  member                      = "user:jane@example.com"
+  member                      = "serviceAccount:ci-account@${var.project_id}.iam.gserviceaccount.com"
   rate_limits                 = { max_concurrent_dispatches = 3, max_dispatches_per_second = 2 }
   role                        = "roles/viewer"
 }

@@ -15,6 +15,8 @@
  */
 
 data "google_iam_policy" "admin" {
+  count = var.queue_iam_choice == "iam_policy" && var.role != null && var.members != null ? 1 : 0
+
   binding {
     role    = var.role
     members = var.members
@@ -102,27 +104,36 @@ resource "google_cloud_tasks_queue" "queue" {
 }
 
 resource "google_cloud_tasks_queue_iam_member" "iam_member" {
-  count    = var.queue_iam_choice == "iam_member" || var.queue_iam_choice == "iam_member_binding" ? 1 : 0
-  name     = var.iam_name
+  count    = contains(["iam_member", "iam_member_binding"], var.queue_iam_choice) && var.role != null && var.member != null ? 1 : 0
+  name     = var.queue_name
   location = var.location
   project  = var.project_id
   member   = var.member
   role     = var.role
+  depends_on = [
+    google_cloud_tasks_queue.queue
+  ]
 }
 
 resource "google_cloud_tasks_queue_iam_binding" "iam_binding" {
-  count    = var.queue_iam_choice == "iam_binding" || var.queue_iam_choice == "iam_member_binding" ? 1 : 0
-  name     = var.iam_name
+  count    = contains(["iam_binding", "iam_member_binding"], var.queue_iam_choice) && var.role != null && var.members != null ? 1 : 0
+  name     = var.queue_name
   location = var.location
   project  = var.project_id
   members  = var.members
   role     = var.role
+  depends_on = [
+    google_cloud_tasks_queue.queue
+  ]
 }
 
 resource "google_cloud_tasks_queue_iam_policy" "iam_policy" {
-  count       = var.queue_iam_choice == "iam_policy" ? 1 : 0
-  name        = var.iam_name
+  count       = var.queue_iam_choice == "iam_policy" && var.role != null && var.members != null ? 1 : 0
+  name        = var.queue_name
   location    = var.location
   project     = var.project_id
-  policy_data = data.google_iam_policy.admin.policy_data
+  policy_data = data.google_iam_policy.admin[0].policy_data
+  depends_on = [
+    google_cloud_tasks_queue.queue
+  ]
 }
