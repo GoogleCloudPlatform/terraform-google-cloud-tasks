@@ -1,7 +1,7 @@
 # terraform-google-cloud-tasks
 
 ## Description
-This module makes it easy to create Google Cloud Tasks, which is a fully managed service that allows you to manage the execution, dispatch and delivery of a large number of distributed tasks.
+This module makes it easy to create Google Cloud Tasks, which is a fully managed regionalized service that allows you to manage the execution, dispatch and delivery of a large number of distributed tasks.
 
 ## Usage
 
