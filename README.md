@@ -10,7 +10,7 @@ Basic usage of this module is as follows:
 ```hcl
 module "cloud_tasks" {
   source  = "terraform-google-modules/cloud-tasks/google"
-  version = "~> 0.1"
+  version = "~> 0.2"
 
   project_id  = "<PROJECT ID>"
   bucket_name = "gcs-test-bucket"
