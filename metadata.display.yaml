@@ -22,7 +22,7 @@ spec:
   info:
     title: terraform-google-cloud-tasks
     source:
-      repo: sso://ospo-internal/releasing/terraform-google-cloud-tasks/terraform-google-cloud-tasks
+      repo: https://github.com/GoogleCloudPlatform/terraform-google-cloud-tasks.git
       sourceType: git
   ui:
     input:
