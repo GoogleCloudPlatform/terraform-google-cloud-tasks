@@ -8,6 +8,17 @@ and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 This changelog is generated automatically based on [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
+## [0.3.0](https://github.com/GoogleCloudPlatform/terraform-google-cloud-tasks/compare/v0.2.0...v0.3.0) (2026-02-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* Update main.tf
+
+### Bug Fixes
+
+* Update main.tf ([21dd89a](https://github.com/GoogleCloudPlatform/terraform-google-cloud-tasks/commit/21dd89a452e97079f3961ac6742f91d440e97863))
+
 ## [0.2.0](https://github.com/GoogleCloudPlatform/terraform-google-cloud-tasks/compare/v0.1.0...v0.2.0) (2026-02-04)
 
 
