@@ -104,7 +104,7 @@ resource "google_cloud_tasks_queue" "queue" {
 }
 
 resource "google_cloud_tasks_queue_iam_member" "iam_member" {
-  count    = contains(["iam_member", "iam_member_binding"], var.queue_iam_choice) && var.role != null && var.member != null ? 1 : 0
+  count    = var.queue_iam_choice != null && contains(["iam_member", "iam_member_binding"], var.queue_iam_choice) && var.role != null && var.member != null ? 1 : 0
   name     = var.queue_name
   location = var.location
   project  = var.project_id
@@ -116,7 +116,7 @@ resource "google_cloud_tasks_queue_iam_member" "iam_member" {
 }
 
 resource "google_cloud_tasks_queue_iam_binding" "iam_binding" {
-  count    = contains(["iam_binding", "iam_member_binding"], var.queue_iam_choice) && var.role != null && var.members != null ? 1 : 0
+  count    = var.queue_iam_choice != null && contains(["iam_binding", "iam_member_binding"], var.queue_iam_choice) && var.role != null && var.members != null ? 1 : 0
   name     = var.queue_name
   location = var.location
   project  = var.project_id
