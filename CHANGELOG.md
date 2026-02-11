@@ -8,6 +8,17 @@ and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 This changelog is generated automatically based on [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/).
 
+## [0.4.0](https://github.com/GoogleCloudPlatform/terraform-google-cloud-tasks/compare/v0.3.0...v0.4.0) (2026-02-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* Updating the iam_choice
+
+### Bug Fixes
+
+* Updating the iam_choice ([04f082f](https://github.com/GoogleCloudPlatform/terraform-google-cloud-tasks/commit/04f082f65409b68471eac4eb83d3caed183a851a))
+
 ## [0.3.0](https://github.com/GoogleCloudPlatform/terraform-google-cloud-tasks/compare/v0.2.0...v0.3.0) (2026-02-11)
 
 
