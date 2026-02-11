@@ -35,7 +35,7 @@ variable "project_id" {
 variable "queue_iam_choice" {
   description = "Opt 1. iam_binding, 2. iam_member, 3. iam_policy, 4. iam_member_binding (for both iam_member and iam_binding)"
   type        = string
-  default     = null
+  default     = ""
 }
 
 #Required variable
