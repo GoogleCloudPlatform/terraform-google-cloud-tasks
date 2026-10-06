@@ -22,7 +22,7 @@ spec:
   info:
     title: terraform-google-cloud-tasks
     source:
-      repo:  https://github.com/GoogleCloudPlatform/terraform-google-cloud-tasks.git
+      repo: https://github.com/GoogleCloudPlatform/terraform-google-cloud-tasks.git
       sourceType: git
     version: 0.4.0
     actuationTool:
@@ -55,12 +55,15 @@ spec:
       - name: queue_iam_choice
         description: Opt 1. iam_binding, 2. iam_member, 3. iam_policy, 4. iam_member_binding (for both iam_member and iam_binding)
         varType: string
+        defaultValue: ""
       - name: role
         description: The role that should be applied, must be passed when a iam_choice is not null
         varType: string
+        defaultValue: null
       - name: member
         description: Identities that will be granted the privilege in role, must be passed when iam_choice is iam_member
         varType: string
+        defaultValue: null
       - name: app_engine_routing_override
         description: Overrides for task-level appEngineRouting and these settings apply only to App Engine tasks in the queue structure
         varType: |-
@@ -70,6 +73,7 @@ spec:
               instance = optional(string)
               host     = optional(string)
             })
+        defaultValue: null
       - name: rate_limits
         description: Rate limits for task dispatches
         varType: |-
@@ -78,6 +82,7 @@ spec:
               max_concurrent_dispatches = optional(number)
               max_burst_size            = optional(number)
             })
+        defaultValue: null
       - name: retry_config
         description: Settings that determine the retry behavior
         varType: |-
@@ -88,12 +93,14 @@ spec:
               max_backoff        = optional(string)
               max_doublings      = optional(number)
             })
+        defaultValue: null
       - name: stackdriver_logging_config
         description: Configuration options for writing logs to Stackdriver Logging
         varType: |-
           object({
               sampling_ratio = optional(number)
             })
+        defaultValue: null
       - name: http_target
         description: Modifies HTTP target for HTTP tasks
         varType: |-
@@ -120,6 +127,7 @@ spec:
                 audience              = optional(string)
               }))
             })
+        defaultValue: null
       - name: members
         description: Identities that will be granted the privilege in role, must be passed when iam_choice is iam_binding or iam_policy
         varType: list(string)
