@@ -31,7 +31,7 @@ Functional examples are included in the
 | member | Identities that will be granted the privilege in role, must be passed when iam\_choice is iam\_member | `string` | `null` | no |
 | members | Identities that will be granted the privilege in role, must be passed when iam\_choice is iam\_binding or iam\_policy | `list(string)` | `[]` | no |
 | project\_id | The ID of the project in which the resource belongs | `string` | n/a | yes |
-| queue\_iam\_choice | Opt 1. iam\_binding, 2. iam\_member, 3. iam\_policy, 4. iam\_member\_binding (for both iam\_member and iam\_binding) | `string` | `null` | no |
+| queue\_iam\_choice | Opt 1. iam\_binding, 2. iam\_member, 3. iam\_policy, 4. iam\_member\_binding (for both iam\_member and iam\_binding) | `string` | `""` | no |
 | queue\_name | The queue name | `string` | n/a | yes |
 | rate\_limits | Rate limits for task dispatches | <pre>object({<br>    max_dispatches_per_second = optional(number)<br>    max_concurrent_dispatches = optional(number)<br>    max_burst_size            = optional(number)<br>  })</pre> | `null` | no |
 | retry\_config | Settings that determine the retry behavior | <pre>object({<br>    max_attempts       = optional(number)<br>    max_retry_duration = optional(string)<br>    min_backoff        = optional(string)<br>    max_backoff        = optional(string)<br>    max_doublings      = optional(number)<br>  })</pre> | `null` | no |
